@@ -10,7 +10,8 @@
     "distrobox",
     "api"
   ],
-  "repository": "github:darksystemgit/distrobox-nodde",
-  "author": "pdarksystem",
+  "bugs": "https://www.github.com/darksystemgit/distrobox-node/issues/new",
+  "repository": "github:darksystemgit/distrobox-node",
+  "author": "pdarksystem <darksystemcoder@gmail.com>",
   "license": "MIT"
 }
