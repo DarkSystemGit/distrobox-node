@@ -1,6 +1,7 @@
 const child_process = require("child_process");
 const distroboxFunctions = {
-    create: async (imageName, name,args) => {
+    create: async (os,name,args) => {
+        var imageName = os
         if (!(name == null)) {
             name = " -n " + name + " "
         } else {
@@ -43,7 +44,7 @@ const distroboxFunctions = {
     stop: async (name,args) => {
         var res = await runComm(`distrobox-stop --root ${name} ${parseArgs(args)}`)
         return res
-    },
+    }
 }
 function parseArgs(args) {
     var shorthand = {}
