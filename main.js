@@ -34,8 +34,10 @@ const distroboxFunctions = {
     },
     remove: async (name,args) => {
         
-        var res = await runComm(`distrobox-rm --root ${name} -Y ${parseArgs(args)}`)
-        return res
+        var list = await runComm(`distrobox-rm --root ${name} -Y ${parseArgs(args)}`)
+        list = list.split('\n')
+        var listObj ={keys:[],values:[]}
+        return listObj.values
     },
     list: async (args) => {
         var res = await runComm(`distrobox-list --root ${parseArgs(args)}`)
