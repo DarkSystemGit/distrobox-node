@@ -33,15 +33,27 @@ const distroboxFunctions = {
         return res
     },
     remove: async (name,args) => {
-        
-        var list = await runComm(`distrobox-rm --root ${name} -Y ${parseArgs(args)}`)
-        list = list.split('\n')
-        var listObj ={keys:[],values:[]}
-        return listObj.values
+        var res = await runComm(`distrobox-rm --root ${name} -Y ${parseArgs(args)}`)
+        return res
     },
     list: async (args) => {
-        var res = await runComm(`distrobox-list --root ${parseArgs(args)}`)
-        return res
+        var list = await runComm(`distrobox-list --root ${parseArgs(args)}`)
+        list = list.split('\n')
+        var listObj ={keys:[],values:[]}
+        for(var i=0; i < list.length;i++){
+            var line = list[i].split('|')
+            if(i==0){
+                listObj.keys = line
+            }else{
+                var obj ={}
+                line.foreach((val,index)=>{
+                    obj[listObj.keys[index].toLowercase()] = val
+                })
+                listObj.values.push(obj)
+            } 
+        }
+        return listObj.values
+        
     },
     stop: async (name,args) => {
         var res = await runComm(`distrobox-stop --root ${name} ${parseArgs(args)}`)
@@ -69,7 +81,7 @@ function parseArgs(args) {
         })
     } catch {
         return ""
-     }
+    }
 
     return res
 }

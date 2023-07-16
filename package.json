@@ -1,6 +1,6 @@
 {
   "name": "distrobox-node",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "node api for distrobox",
   "main": "main.js",
   "scripts": {
