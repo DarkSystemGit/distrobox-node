@@ -16,8 +16,8 @@ distrobox.stop('ubuntu')
 Pretty simple, right?\
 Your a smart developer so if you have any issues, just look at the code.\
 You want more features? Roll your own code. (I don't really have time to do anything but maintain the code)\
-You have a question? If you can't find the answer in the code, post an issue and state in the title that its a question.\ 
-If its a bug, say it's a bug.\
+You have a question?  If you can't find the answer in the code, post an issue and state in the title that its a question.   
+If it's a bug, say it's a bug.  
 Also, the `args` parameter is a object containing arguments that are passed to distrobox that looks like this, 
 ```js
 {"R":"","force":""}
