@@ -1,4 +1,26 @@
 const child_process = require("child_process");
+var images = {
+    ubuntu: "quay.io/toolbx-images/ubuntu-toolbox:22.04",
+    arch: "quay.io/toolbx-images/archlinux-toolbox",
+    alpine: "quay.io/toolbx-images/alpine-toolbox:3.17",
+    opensuse: "registry.opensuse.org/opensuse/distrobox:latest",
+    fedora: "registry.fedoraproject.org/fedora-toolbox:39",
+    redhat: "registry.access.redhat.com/ubi9/ubi",
+    rockyLinux: "quay.io/rockylinux/rockylinux:latest",
+    debian: "docker.io/library/debian:testing",
+    almalinux: "quay.io/almalinux/almalinux:9",
+    amazonlinux: "public.ecr.aws/amazonlinux/amazonlinux:2022.0.20220531.0",
+    void: "ghcr.io/void-linux/void-linux:latest-full-x86_64",
+    deepin: "docker.io/linuxdeepin/beige",
+    slackware: "docker.io/vbatts/slackware:14.2",
+    clearlinux: "docker.io/library/clearlinux:latest",
+    centos: "quay.io/centos/centos:7",
+    centosstream: "quay.io/toolbx-images/centos-toolbox:stream9",
+    gentoo: "docker.io/gentoo/stage3:latest",
+    kali: "docker.io/kalilinux/kali-rolling:latest",
+    mint: "docker.io/linuxmintd/mint21.1-amd64",
+    opensuse: "registry.opensuse.org/opensuse/toolbox:latest"
+}
 const distroboxFunctions = {
     create: async (os,name,args) => {
         var imageName = os
@@ -7,28 +29,7 @@ const distroboxFunctions = {
         } else {
             name = " "
         }
-        var images = {
-            ubuntu: "quay.io/toolbx-images/ubuntu-toolbox:22.04",
-            arch: "quay.io/toolbx-images/archlinux-toolbox",
-            alpine: "quay.io/toolbx-images/alpine-toolbox:3.17",
-            opensuse: "registry.opensuse.org/opensuse/distrobox:latest",
-            fedora: "registry.fedoraproject.org/fedora-toolbox:39",
-            redhat: "registry.access.redhat.com/ubi9/ubi",
-            rockyLinux: "quay.io/rockylinux/rockylinux:latest",
-            debian: "docker.io/library/debian:testing",
-            almalinux: "quay.io/almalinux/almalinux:9",
-            amazonlinux: "public.ecr.aws/amazonlinux/amazonlinux:2022.0.20220531.0",
-            void: "ghcr.io/void-linux/void-linux:latest-full-x86_64",
-            deepin: "docker.io/linuxdeepin/beige",
-            slackware: "docker.io/vbatts/slackware:14.2",
-            clearlinux: "docker.io/library/clearlinux:latest",
-            centos: "quay.io/centos/centos:7",
-            centosstream: "quay.io/toolbx-images/centos-toolbox:stream9",
-            gentoo: "docker.io/gentoo/stage3:latest",
-            kali: "docker.io/kalilinux/kali-rolling:latest",
-            mint: "docker.io/linuxmintd/mint21.1-amd64",
-            opensuse: "registry.opensuse.org/opensuse/toolbox:latest"
-        }
+        
         var res = await runComm(`distrobox-create --root${name}-i ${images[imageName]} -Y ${parseArgs(args)}`)
         return res
     },
@@ -37,22 +38,26 @@ const distroboxFunctions = {
         return res
     },
     list: async (args) => {
-        var list = await runComm(`distrobox-list --root ${parseArgs(args)}`)
+        var list = await runComm(`distrobox-list --root --no-color ${parseArgs(args)}`)
         list = list.split('\n')
+        
         var listObj ={keys:[],values:[]}
-        for(var i=0; i < list.length;i++){
+        for(var i=0; i < list.length-1;i++){
             var line = list[i].split('|')
+            
             if(i==0){
                 listObj.keys = line
             }else{
+                
                 var obj ={}
-                line.foreach((val,index)=>{
-                    obj[listObj.keys[index].toLowercase()] = val
+                line.forEach((val,index)=>{
+                    
+                    obj[listObj.keys[index].toLowerCase().replaceAll(' ','')] = val.trim()
                 })
                 listObj.values.push(obj)
             } 
         }
-        return listObj.values
+        return [listObj.values,images]
         
     },
     stop: async (name,args) => {
@@ -100,4 +105,8 @@ async function runComm(comm) {
         });
     })
 }
+(async function(){
+    await distroboxFunctions.create('arch','arch')
+    console.log(await distroboxFunctions.list())
+})()
 module.exports = distroboxFunctions

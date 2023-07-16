@@ -3,15 +3,15 @@ Distrobox API for Node.JS
 # Usage
 run `npm install distrobox-node` in your project
 ```js
-var distrobox = require('distrobox-node')
-// create a container (os,name,args)
-distrobox.create('ubuntu','ubuntu')
-//remove a container (name, args)
-distrobox.remove('ubuntu')
+const distrobox = require('distrobox-node')
+// create a container (os,name,args), returns stdout
+await distrobox.create('ubuntu','ubuntu')
+//remove a container (name, args), returns stdout
+await distrobox.remove('ubuntu')
 //list all containers (args), returns a list of objects, containing information about each container
-distrobox.list()
-//stop a container (name, args)
-distrobox.stop('ubuntu')    
+await distrobox.list()
+//stop a container (name, args), returns stdout
+await distrobox.stop('ubuntu')    
 ```
 Pretty simple, right?\
 Your a smart developer so if you have any issues, just look at the code.\
