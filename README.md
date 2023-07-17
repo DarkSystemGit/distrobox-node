@@ -4,11 +4,17 @@
 
 
 Distrobox API for Node.JS
-> __Warning__ 
-> The versions of this code published on npm may be untested. 
+> __Warning__
+>  
+> The versions of this package published on npm may be untested. 
 > There will be a badge on the top of the page to indicate this.
 
-Distrobox must be installed on the system that  this package is being used on. 
+> __Note__
+>  
+> The latest versions of this package will be published on github. 
+> The badge on top of the readme will indicate if said release is stable. 
+
+[Distrobox](https://www.github.com/89luca89/distrobox) must be installed on the system that  this package is being used on.  
 # Usage
 run `npm install distrobox-node` in your project
 ```js
