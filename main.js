@@ -57,12 +57,15 @@ const distroboxFunctions = {
                 listObj.values.push(obj)
             } 
         }
-        return [listObj.values,images]
+        return listObj.values
         
     },
     stop: async (name,args) => {
         var res = await runComm(`distrobox-stop --root ${name} ${parseArgs(args)}`)
         return res
+    },
+    getImages: async()=>{
+        return images
     }
 }
 function parseArgs(args) {

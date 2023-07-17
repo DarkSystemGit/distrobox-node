@@ -1,5 +1,14 @@
 # Distrobox-Node
-Distrobox API for Node.JS 
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Tested-green?style=for-the-badge)
+
+
+Distrobox API for Node.JS
+> __Warning__ 
+> The versions of this code published on npm may be untested. 
+> There will be a badge on the top of the page to indicate this.
+
+Distrobox must be installed on the system that  this package is being used on. 
 # Usage
 run `npm install distrobox-node` in your project
 ```js
@@ -11,7 +20,9 @@ await distrobox.remove('ubuntu')
 //list all containers (args), returns a list of objects, containing information about each container
 await distrobox.list()
 //stop a container (name, args), returns stdout
-await distrobox.stop('ubuntu')    
+await distrobox.stop('ubuntu')
+//get a object with the names and images of all OSs supported by distrobox-node (usally the latest image)
+distrobox.getImages()
 ```
 Pretty simple, right?\
 Your a smart developer so if you have any issues, just look at the code.\
