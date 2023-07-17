@@ -29,15 +29,13 @@ await distrobox.list()
 await distrobox.stop('ubuntu')
 //get a object with the names and images of all OSs supported by distrobox-node (usally the latest image)
 distrobox.getImages()
+/*Also, the args parameter used in most functions exposed by this libary
+is a object containing arguments that are passed to distrobox. 
+The keys of the object being the argument names, and the values being the argument values.*/
 ```
 Pretty simple, right?\
 Your a smart developer so if you have any issues, just look at the code.\
 You want more features? Roll your own code. (I don't really have time to do anything but maintain the code)\
 You have a question?  If you can't find the answer in the code, post an issue and state in the title that its a question.   
 If it's a bug, say it's a bug.  
-Also, the `args` parameter is a object containing arguments that are passed to distrobox that looks like this, 
-```js
-{"R":"","force":""}
-```
-The keys being the argument name, and the values being the argument value.\
 Simple.
