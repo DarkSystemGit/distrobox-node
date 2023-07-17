@@ -39,3 +39,11 @@ You want more features? Roll your own code. (I don't really have time to do anyt
 You have a question?  If you can't find the answer in the code, post an issue and state in the title that its a question.   
 If it's a bug, say it's a bug.  
 Simple.
+# Changelog
+1.0.0: First release;
+
+1.1.0: added list parsing;
+
+1.1.1: fixed bugs with list parsing;
+
+1.1.2: added getImages function;
