@@ -22,50 +22,70 @@ var images = {
     opensuse: "registry.opensuse.org/opensuse/toolbox:latest"
 }
 const distroboxFunctions = {
-    create: async (os,name,args) => {
-        var imageName = os
-        if (!(name == null)) {
-            name = " -n " + name + " "
-        } else {
-            name = " "
+    create: async (os, name, args) => {
+        try {
+            var imageName = os
+            if (!(name == null)) {
+                name = " -n " + name + " "
+            } else {
+                name = " "
+            }
+
+            var res = await runComm(`distrobox-create --root${name}-i ${images[imageName]} -Y ${parseArgs(args)}`)
+            return res
+        } catch {
+            throw new Error('Error while creating container')
         }
-        
-        var res = await runComm(`distrobox-create --root${name}-i ${images[imageName]} -Y ${parseArgs(args)}`)
-        return res
     },
-    remove: async (name,args) => {
-        var res = await runComm(`distrobox-rm --root ${name} -Y ${parseArgs(args)}`)
-        return res
+    remove: async (name, args) => {
+        try {
+            var res = await runComm(`distrobox-rm --root ${name} -Y ${parseArgs(args)}`)
+            return res
+        } catch {
+            throw new Error('Error while removing container')
+        }
     },
     list: async (args) => {
-        var list = await runComm(`distrobox-list --root --no-color ${parseArgs(args)}`)
-        list = list.split('\n')
-        
-        var listObj ={keys:[],values:[]}
-        for(var i=0; i < list.length-1;i++){
-            var line = list[i].split('|')
-            
-            if(i==0){
-                listObj.keys = line
-            }else{
-                
-                var obj ={}
-                line.forEach((val,index)=>{
-                    
-                    obj[listObj.keys[index].toLowerCase().replaceAll(' ','')] = val.trim()
-                })
-                listObj.values.push(obj)
-            } 
+        try {
+            var list = await runComm(`distrobox-list --root --no-color ${parseArgs(args)}`)
+            list = list.split('\n')
+
+            var listObj = { keys: [], values: [] }
+            for (var i = 0; i < list.length - 1; i++) {
+                var line = list[i].split('|')
+
+                if (i == 0) {
+                    listObj.keys = line
+                } else {
+
+                    var obj = {}
+                    line.forEach((val, index) => {
+
+                        obj[listObj.keys[index].toLowerCase().replaceAll(' ', '')] = val.trim()
+                    })
+                    listObj.values.push(obj)
+                }
+            }
+            return listObj.values
+        } catch {
+            throw new Error('Error while listing containers')
         }
-        return listObj.values
-        
+
     },
-    stop: async (name,args) => {
-        var res = await runComm(`distrobox-stop --root ${name} ${parseArgs(args)}`)
-        return res
+    stop: async (name, args) => {
+        try {
+            var res = await runComm(`distrobox-stop --root ${name} ${parseArgs(args)}`)
+            return res
+        } catch {
+            throw new Error('Error while stopping container')
+        }
     },
-    getImages: async()=>{
-        return images
+    getImages: async () => {
+        try {
+            return images
+        } catch {
+            throw new Error('Error while getting container images')
+        }
     }
 }
 function parseArgs(args) {
@@ -108,8 +128,4 @@ async function runComm(comm) {
         });
     })
 }
-(async function(){
-    await distroboxFunctions.create('arch','arch')
-    console.log(await distroboxFunctions.list())
-})()
 module.exports = distroboxFunctions
