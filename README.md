@@ -1,6 +1,6 @@
 # Distrobox-Node
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Tested-green?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Untested-red?style=for-the-badge)
 
 
 Distrobox API for Node.JS
