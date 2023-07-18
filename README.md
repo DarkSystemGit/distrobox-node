@@ -14,7 +14,7 @@ Distrobox API for Node.JS
 > The latest versions of this package will be published on github. 
 > The badge on top of the readme will indicate if said release is stable. 
 
-[Distrobox](https://www.github.com/89luca89/distrobox) must be installed on the system that  this package is being used on.  
+[Distrobox](https://www.github.com/89luca89/distrobox) must be installed on the system that this package is being used on.  
 # Usage
 run `npm install distrobox-node` in your project
 ```js
