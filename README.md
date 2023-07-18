@@ -46,4 +46,6 @@ Simple.
 
 1.1.1: fixed bugs with list parsing;
 
-1.1.2: added getImages function;
+1.2.0: added getImages function;
+
+1.2.1: Readme fix
