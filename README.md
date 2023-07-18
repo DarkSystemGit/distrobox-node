@@ -49,3 +49,5 @@ Simple.
 1.2.0: added getImages function;
 
 1.2.1: Readme fix
+
+1.2.2: no root argument added
