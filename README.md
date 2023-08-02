@@ -21,17 +21,23 @@ run `npm install distrobox-node` in your project
 const distrobox = require('distrobox-node')
 // create a container (os,name,args), returns stdout
 await distrobox.create('ubuntu','ubuntu')
+// run a command in a container (name, command, args), returns stdout
+await distrobox.exec('ubuntu', 'sudo apt install neofetch -y; neofetch')
+//stop a container (name, args), returns stdout
+await distrobox.stop('ubuntu')
 //remove a container (name, args), returns stdout
 await distrobox.remove('ubuntu')
 //list all containers (args), returns a list of objects, containing information about each container
 await distrobox.list()
-//stop a container (name, args), returns stdout
-await distrobox.stop('ubuntu')
-//get a object with the names and images of all OSs supported by distrobox-node (usally the latest image)
+//get a object with the names and images of all OSs supported by distrobox-node (usually the latest image)
 distrobox.getImages()
-/*Also, the args parameter used in most functions exposed by this libary
+/*Also, the args parameter used in most functions exposed by this library
 is a object containing arguments that are passed to distrobox. 
-The keys of the object being the argument names, and the values being the argument values.*/
+The keys of the object being the argument names, and the values being the argument values.
+Note:
+All commands are ran as root by default. 
+To run a command without root,add the no-root argument in the args object.
+*/ 
 ```
 Pretty simple, right?\
 Your a smart developer so if you have any issues, just look at the code.\
@@ -51,3 +57,5 @@ Simple.
 1.2.1: Readme fix
 
 1.2.2: no root argument added
+
+1.3.0: Exec added, docs fixes

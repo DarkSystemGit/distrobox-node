@@ -103,7 +103,7 @@ const distroboxFunctions = {
             throw new Error(`Error while stopping container ${name}`)
         }
     },
-    exec: async (name, cmd) => {
+    exec: async (name, cmd, args) => {
         try {
             var args = parseArgs(args)
             var root = "--root"
