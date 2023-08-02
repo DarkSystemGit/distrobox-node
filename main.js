@@ -32,11 +32,11 @@ const distroboxFunctions = {
             }
             var args = parseArgs(args)
             var root = "--root"
-            if(args.includes("--no-root")){
+            if (args.includes("--no-root")) {
                 root = ""
-                args.replace("--no-root","")
+                args.replace("--no-root", "")
             }
-            var res = await runComm(`distrobox-create ${root}${name}-i ${images[imageName]} -Y ${args}`)
+            var res = await runComm(`distrobox-create ${root} --name ${name} -i ${images[imageName]} -Y ${args}`)
             return res
         } catch {
             throw new Error('Error while creating container')
@@ -46,11 +46,11 @@ const distroboxFunctions = {
         try {
             var args = parseArgs(args)
             var root = "--root"
-            if(args.includes("--no-root")){
+            if (args.includes("--no-root")) {
                 root = ""
-                args.replace("--no-root","")
+                args.replace("--no-root", "")
             }
-            var res = await runComm(`distrobox-rm ${root} ${name} -Y ${args}`)
+            var res = await runComm(`distrobox-rm ${root} --name ${name} -Y ${args}`)
             return res
         } catch {
             throw new Error('Error while removing container')
@@ -60,9 +60,9 @@ const distroboxFunctions = {
         try {
             var args = parseArgs(args)
             var root = "--root"
-            if(args.includes("--no-root")){
+            if (args.includes("--no-root")) {
                 root = ""
-                args.replace("--no-root","")
+                args.replace("--no-root", "")
             }
             var list = await runComm(`distrobox-list ${root} --no-color ${args}`)
             list = list.split('\n')
@@ -93,14 +93,28 @@ const distroboxFunctions = {
         try {
             var args = parseArgs(args)
             var root = "--root"
+            if (args.includes("--no-root")) {
+                root = ""
+                args.replace("--no-root", "")
+            }
+            var res = await runComm(`distrobox-stop ${root} --name ${name} ${args}`)
+            return res
+        } catch {
+            throw new Error(`Error while stopping container ${name}`)
+        }
+    },
+    exec: async (name, cmd) => {
+        try {
+            var args = parseArgs(args)
+            var root = "--root"
             if(args.includes("--no-root")){
                 root = ""
                 args.replace("--no-root","")
             }
-            var res = await runComm(`distrobox-stop ${root} ${name} ${args}`)
+            var res = await runComm(`distrobox-enter ${root} --name ${name} ${args} -- ${cmd}`)
             return res
         } catch {
-            throw new Error('Error while stopping container')
+            throw new Error(`Error while running command in container ${name}`)
         }
     },
     getImages: async () => {
