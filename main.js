@@ -50,7 +50,7 @@ const distroboxFunctions = {
                 root = ""
                 args.replace("--no-root", "")
             }
-            var res = await runComm(`distrobox-rm ${root} --name ${name} -Y ${args}`)
+            var res = await runComm(`distrobox-rm ${root} ${name} -Y ${args}`)
             return res
         } catch {
             throw new Error('Error while removing container')
@@ -97,7 +97,7 @@ const distroboxFunctions = {
                 root = ""
                 args.replace("--no-root", "")
             }
-            var res = await runComm(`distrobox-stop ${root} --name ${name} ${args}`)
+            var res = await runComm(`distrobox-stop ${root} --name ${name} -Y ${args}`)
             return res
         } catch {
             throw new Error(`Error while stopping container ${name}`)
@@ -154,7 +154,7 @@ async function runComm(comm) {
     return new Promise((resolve, reject) => {
         child_process.exec(comm, (error, stdout, stderr) => {
             if (error) {
-                reject(`error: ${error.message}`);
+                console.log(`error: ${error.message}`);
                 return;
             }
             if (stderr) {
