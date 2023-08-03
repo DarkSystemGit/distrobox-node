@@ -1,6 +1,6 @@
 # Distrobox-Node
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Untested-red?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Tested-green?style=for-the-badge)
 
 
 Distrobox API for Node.JS
@@ -59,3 +59,5 @@ Simple.
 1.2.2: no root argument added
 
 1.3.0: Exec added, docs fixes
+
+1.3.1: A heap of bug fixes
